@@ -1,7 +1,9 @@
-import { Grid, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse,  Avatar, IconButton, Typography} from "@mui/material";
-import  { MoreVert, Favorite, ExpandMore }  from "@mui/icons-material";
+import { Grid, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse,  Avatar, IconButton, Typography, Badge} from "@mui/material";
+import  { MoreVert, Favorite, ExpandMore, Delete }  from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
+import { isLiked } from '../../utils/post';
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru'
 import s from './index.module.css'
@@ -15,12 +17,14 @@ const ExpandMoreStyled = styled((props) => {
     transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
     marginLeft: 'auto',
   }));
+
+ 
   
     
 
-const Post =({image, title, author = {}, text, created_at}) => {
+const Post =({image, title, author={}, likes, text, created_at, onPostLike,_id, userMe}) => {
 
-    const {email, avatar} = author;
+    const {name, avatar} = author;
 
     const [expanded, setExpanded] = React.useState(false);
   
@@ -28,16 +32,26 @@ const Post =({image, title, author = {}, text, created_at}) => {
       setExpanded(!expanded);
     };
 
+    const liked = isLiked(likes, userMe._id)
+
+
+	function handleLikeClick(){
+	onPostLike({_id, likes})
+}
+
+    let color;
+
+    if (likes.length > 0) { color = 'warning' }
     return(
         <Grid sx={{display:'flex'}} item xs={12} sm={6} md={4} lg={3}>
             <Card className={s.card}>
-                <CardHeader
+                <CardHeader 
                 avatar={
                     <Avatar src={avatar && avatar} aria-label="recipe">
-                        {email?.slice(0,1).toUpperCase()}
+                        {name?.slice(0,1).toUpperCase()}
                     </Avatar>
                 }
-                title={email}
+                title={name}
                 subheader={dayjs(created_at).format('dddd, YYYY-MM-D')}
             />
                 <CardMedia
@@ -53,10 +67,16 @@ const Post =({image, title, author = {}, text, created_at}) => {
                     </Typography>
                 </CardContent>
 
-                <CardActions sx={{marginTop:'auto'}} disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <Favorite />
+                <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites" color={color} onClick={() => handleLikeClick(likes, _id)} >
+                        <Badge badgeContent={likes.length} color="primary">
+                            <Favorite />
+                        </Badge>
                     </IconButton>
+                   <IconButton aria-label="delete" >
+                    <Delete/>
+                   </IconButton>
+                  
                     <ExpandMoreStyled
                         expand={expanded}
                         onClick={handleExpandClick}

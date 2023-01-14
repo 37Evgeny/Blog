@@ -1,12 +1,12 @@
 import { Container, Grid } from "@mui/material";
 import Post from '../Post/post.jsx'
 
-const PostList =({posts}) => {
+const PostList =({postsAll, onPostLike, userMe}) => {
     return(
         <Grid container spacing={2}>
-        {posts.map(item=> (
-            <Post key={item._id} {...item}/>
-        ))}
+        {
+           postsAll.map((item, index)=> <Post key={item._id} {...item} userMe={userMe} onPostLike={onPostLike}/> )
+      }
         </Grid>
     );
 };
