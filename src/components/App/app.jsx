@@ -5,7 +5,7 @@ import Footer from "../Footer/footer";
 import Header from "../Header/header";
 import PostList from "../PostList/post-list";
 import {isLiked} from '../../utils/post';
-
+import { isPost } from "../../utils/post";
 function App () {
 // Состояние для постов
     const [posts, setPosts] = useState([]);
@@ -20,10 +20,9 @@ function App () {
             setUserMe(userData)
             setPosts(postData) 
             setUserAll(userAllData)
-            console.log(userData)
         })
         .catch(err=>console.log(err))
-    },[])
+    },[posts])
 
     // Функция изменения пользовательских данных
   function handleUpdateUser(userUpdateData){
@@ -48,11 +47,23 @@ function App () {
     })
   }
 
+  function handlePostDelete(post){
+    const postId = post._id
+    api.deletePost(post._id)
+    .then((newPost)=>{
+      // Перебирает массив 
+      const newPosts = posts.map(postState=>{       
+         return postState._id ===newPost._id ? newPost : postState;
+      })
+      setPosts(newPosts);
+    })
+  }
+
     return(
         <>
             <Header userMe={userMe} onUpdateUser={handleUpdateUser}/>
             <Container>
-                <PostList postsAll = {posts} onPostLike={handlePostLike} userMe={userMe} />
+                <PostList postsAll = {posts} onPostLike={handlePostLike} userMe={userMe} postDelete={handlePostDelete} />
             </Container>
             <Footer/>
         </>

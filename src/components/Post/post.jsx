@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import * as React from 'react';
 import { isLiked } from '../../utils/post';
 
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru'
 import s from './index.module.css'
@@ -22,7 +23,7 @@ const ExpandMoreStyled = styled((props) => {
   
     
 
-const Post =({image, title, author={}, likes, text, created_at, onPostLike,_id, userMe}) => {
+const Post =({image, title, author={}, likes, text, created_at, onPostLike,_id, userMe, postDelete}) => {
 
     const {name, avatar} = author;
 
@@ -37,6 +38,10 @@ const Post =({image, title, author={}, likes, text, created_at, onPostLike,_id, 
 
 	function handleLikeClick(){
 	onPostLike({_id, likes})
+}
+
+function handlePostDeleteClick(){
+	postDelete({_id})
 }
 
     let color;
@@ -83,7 +88,7 @@ const Post =({image, title, author={}, likes, text, created_at, onPostLike,_id, 
                      
                         <ExpandMore />
                     </ExpandMoreStyled>
-                    <IconButton aria-label="delete" >
+                    <IconButton aria-label="delete" onClick={() => handlePostDeleteClick(_id)}>
                     <Delete/>
                    </IconButton>
                 </CardActions>
