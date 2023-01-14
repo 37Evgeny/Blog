@@ -3,6 +3,9 @@ import  { MoreVert, Favorite, ExpandMore, Delete }  from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 import { isLiked } from '../../utils/post';
+import { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
+import { PostContext } from '../../context/postContext';
 
 
 import dayjs from 'dayjs';
@@ -23,8 +26,9 @@ const ExpandMoreStyled = styled((props) => {
   
     
 
-const Post =({image, title, author={}, likes, text, created_at, onPostLike,_id, userMe, postDelete}) => {
-
+const Post =({image, title, author={}, likes, text, created_at,_id}) => {
+    const {user: userMe} = useContext(UserContext);
+	const {handleLike: onPostLike, postDelete:postDelete} = useContext(PostContext);
     const {name, avatar} = author;
 
     const [expanded, setExpanded] = React.useState(false);

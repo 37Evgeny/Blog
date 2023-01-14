@@ -5,7 +5,12 @@ import Footer from "../Footer/footer";
 import Header from "../Header/header";
 import PostList from "../PostList/post-list";
 import {isLiked} from '../../utils/post';
-import { isPost } from "../../utils/post";
+import { NotFound } from "../NotFound/not-found";
+import {  Routes, Route, useNavigate } from 'react-router-dom';
+import { PostListPage } from "../../pages/PostListPage/post-list-page";
+import { UserContext } from '../../context/userContext';
+import { PostContext } from '../../context/postContext';
+
 function App () {
 // Состояние для постов
     const [posts, setPosts] = useState([]);
@@ -48,7 +53,6 @@ function App () {
   }
 
   function handlePostDelete(post){
-    const postId = post._id
     api.deletePost(post._id)
     .then((newPost)=>{
       // Перебирает массив 
@@ -60,13 +64,19 @@ function App () {
   }
 
     return(
+      <UserContext.Provider value={{user: userMe}}>
+      <PostContext.Provider value={{posts, postDelete: handlePostDelete, handleLike: handlePostLike}}>
         <>
             <Header userMe={userMe} onUpdateUser={handleUpdateUser}/>
-            <Container>
-                <PostList postsAll = {posts} onPostLike={handlePostLike} userMe={userMe} postDelete={handlePostDelete} />
-            </Container>
+              <Routes>
+                  <Route index element={
+                    <PostListPage/>
+                  }/>
+              </Routes>
             <Footer/>
         </>
+        </PostContext.Provider>
+    </UserContext.Provider>
     );
 };
 
