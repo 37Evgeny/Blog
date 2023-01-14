@@ -73,17 +73,19 @@ const Post =({image, title, author={}, likes, text, created_at, onPostLike,_id, 
                             <Favorite />
                         </Badge>
                     </IconButton>
-                   <IconButton aria-label="delete" >
-                    <Delete/>
-                   </IconButton>
+                  
                   
                     <ExpandMoreStyled
                         expand={expanded}
                         onClick={handleExpandClick}
                         aria-label="show more"
                     >
+                     
                         <ExpandMore />
                     </ExpandMoreStyled>
+                    <IconButton aria-label="delete" >
+                    <Delete/>
+                   </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
