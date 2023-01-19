@@ -11,6 +11,7 @@ import { PostContext } from '../../context/postContext';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru'
 import s from './index.module.css'
+import { Link } from "react-router-dom";
 dayjs.locale('ru')
 
 
@@ -37,9 +38,6 @@ const Post =({image, title, author={}, likes, text, created_at,_id}) => {
       setExpanded(!expanded);
     };
 
-    const liked = isLiked(likes, userMe._id)
-
-
 	function handleLikeClick(){
 	onPostLike({_id, likes})
 }
@@ -63,12 +61,16 @@ function handlePostDeleteClick(){
                 title={name}
                 subheader={dayjs(created_at).format('dddd, YYYY-MM-D')}
             />
-                <CardMedia
+            <Link to={`/post/${_id}`} className="card__link">
+
+            <CardMedia
                     component="img"
                     height="194"
                     image={image}
                     alt={`Изображение ${title}`}
                 />
+            </Link>
+                
                 <CardContent>
                     <Typography variant='h5' component='h2' gutterBottom>{title}</Typography>
                     <Typography variant="body2" noWrap color="text.secondary">
@@ -92,7 +94,8 @@ function handlePostDeleteClick(){
                      
                         <ExpandMore />
                     </ExpandMoreStyled>
-                    <IconButton aria-label="delete" onClick={() => handlePostDeleteClick(_id)}>
+                    <IconButton aria-label="delete" onClick={() => handlePostDeleteClick(_id)
+                        }>
                     <Delete/>
                    </IconButton>
                 </CardActions>

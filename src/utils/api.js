@@ -53,6 +53,13 @@ class Api {
         } ).then(onResponce)
         .catch((err) => { console.log(`ошибка ${err}`) })
     }
+
+    // Запрос на получение поста
+    getPostById(postId){
+        return fetch(`${this._baseUrl}/posts/${postId}`, {
+            headers: this._headers
+        }).then(onResponce)
+    }
   
 
 }

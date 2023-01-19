@@ -3,8 +3,10 @@ import Post from '../Post/post.jsx'
 import { useContext } from 'react';
 import { PostContext } from '../../context/postContext';
 import { UserContext } from '../../context/userContext';
+import { useNavigate } from "react-router-dom";
 
 const PostList =({posts}) => {
+    const navigate= useNavigate()
      return(
         <Grid container spacing={2}>
         {

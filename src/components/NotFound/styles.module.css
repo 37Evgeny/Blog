@@ -12,7 +12,13 @@
 }
 
 .image {
-	width: 180px;
-	height: 180px;
+	width: 80vh;
+	height: 80vh;
 	object-fit: contain;
+}
+.btnA{
+	display: flex;
+	align-items: center;
+	margin-left: 600px;
+	margin-top: 20px ;
 }
