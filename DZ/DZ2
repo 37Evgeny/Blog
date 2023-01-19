@@ -1,0 +1,43 @@
+Проект. ДЗ#2:  Работа с сетью.
+ВАЖНОЕ: Для выполнения работы нужен токен, каждому он сгенерирован и прикреплён в таблице в классруме. Отправляйте запросы подписываясь своим токеном.
+
+Необходимо реализовать работу проекта с API.
+
+
+
+На данный момент необходимо реализовать.
+1. Загрузка информации о пользователе с сервера (разобрано на вебинаре на примере товаров) Выполнено
+2. Загрузка постов с сервера (разобрано на вебинаре) Выполнено
+3. Отображение количества лайков постов  выполнено
+4. Удаления поста  (создать свой пост можете через Postman, удалять можно только свои посты)
+5. Постановка и снятие лайка  (разобрано на вебинаре) выполнено
+
+
+Список эндпоинтов которые вы можете использовать приведен ниже:
+
+########:groupId вашей группы group-7#########
+
+//ПРО ПОСТЫ
+
+GET https://api.react-learning.ru/v2/:groupId/posts // получение всех постов 
+GET https://api.react-learning.ru/v2/:groupId/posts/search/?query=строка фильтрации по title // для поиска постов 
+GET https://api.react-learning.ru/v2/:groupId/posts/:id // получение поста по id 
+GET https://api.react-learning.ru/v2/:groupId/posts/paginate?page=номер страницы&limit=число ограничивающее вывод на страницу&query=строка фильтрации по title //добавление навигации 
+POST https://api.react-learning.ru/v2/:groupId/posts // создание нового поста 
+PATCH https://api.react-learning.ru/v2/:groupId/posts/:postId //редактирование поста по id 
+DELETE https://api.react-learning.ru/v2/:groupId/posts/:postId //удаление поста по id 
+PUT https://api.react-learning.ru/v2/:groupId/posts/likes/:postId // установка лайка по id 
+DELETE https://api.react-learning.ru/v2/:groupId/posts/likes/:postId // снятие лайка по id 
+POST https://api.react-learning.ru/v2/:groupId/posts/comments/:postId // добавление комментария по id 
+DELETE https://api.react-learning.ru/v2/:groupId/posts/comments/:postId/:commentId // удаление комментария по id 
+GET https://api.react-learning.ru/v2/:groupId/posts/comments/ // получение всех комментариев 
+GET https://api.react-learning.ru/v2/:groupId/posts/comments/:postId // получение комментариев конкрентного поста.  
+
+
+ //ПРО ПОЛЬЗОВАТЕЛЯ  
+
+GET https://api.react-learning.ru/v2/:groupId/users //получение всех пользователей 
+GET https://api.react-learning.ru/v2/:groupId/users/me // получение информации о пользователе по токену в заголовках
+GET https://api.react-learning.ru/v2/:groupId/users/:userId // получение информации о пользователе по его id 
+PATCH https://api.react-learning.ru/v2/:groupId/users/me // изменение name и about 
+PATCH https://api.react-learning.ru/v2/:groupId/users/me/avatar // изменение avatar   

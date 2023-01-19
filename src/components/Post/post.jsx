@@ -1,10 +1,17 @@
-import { Grid, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse,  Avatar, IconButton, Typography} from "@mui/material";
-import  { MoreVert, Favorite, ExpandMore }  from "@mui/icons-material";
+import { Grid, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse,  Avatar, IconButton, Typography, Badge} from "@mui/material";
+import  { MoreVert, Favorite, ExpandMore, Delete }  from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
+import { isLiked } from '../../utils/post';
+import { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
+import { PostContext } from '../../context/postContext';
+
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru'
 import s from './index.module.css'
+import { Link } from "react-router-dom";
 dayjs.locale('ru')
 
 
@@ -15,12 +22,15 @@ const ExpandMoreStyled = styled((props) => {
     transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
     marginLeft: 'auto',
   }));
+
+ 
   
     
 
-const Post =({image, title, author = {}, text, created_at}) => {
-
-    const {email, avatar} = author;
+const Post =({image, title, author={}, likes, text, created_at,_id}) => {
+    const {user: userMe} = useContext(UserContext);
+	const {handleLike: onPostLike, postDelete:postDelete} = useContext(PostContext);
+    const {name, avatar} = author;
 
     const [expanded, setExpanded] = React.useState(false);
   
@@ -28,24 +38,39 @@ const Post =({image, title, author = {}, text, created_at}) => {
       setExpanded(!expanded);
     };
 
+	function handleLikeClick(){
+	onPostLike({_id, likes})
+}
+
+function handlePostDeleteClick(){
+	postDelete({_id})
+}
+
+    let color;
+
+    if (likes.length > 0) { color = 'warning' }
     return(
         <Grid sx={{display:'flex'}} item xs={12} sm={6} md={4} lg={3}>
             <Card className={s.card}>
-                <CardHeader
+                <CardHeader 
                 avatar={
                     <Avatar src={avatar && avatar} aria-label="recipe">
-                        {email?.slice(0,1).toUpperCase()}
+                        {name?.slice(0,1).toUpperCase()}
                     </Avatar>
                 }
-                title={email}
+                title={name}
                 subheader={dayjs(created_at).format('dddd, YYYY-MM-D')}
             />
-                <CardMedia
+            <Link to={`/post/${_id}`} className="card__link">
+
+            <CardMedia
                     component="img"
                     height="194"
                     image={image}
                     alt={`Изображение ${title}`}
                 />
+            </Link>
+                
                 <CardContent>
                     <Typography variant='h5' component='h2' gutterBottom>{title}</Typography>
                     <Typography variant="body2" noWrap color="text.secondary">
@@ -53,17 +78,26 @@ const Post =({image, title, author = {}, text, created_at}) => {
                     </Typography>
                 </CardContent>
 
-                <CardActions sx={{marginTop:'auto'}} disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <Favorite />
+                <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites" color={color} onClick={() => handleLikeClick(likes, _id)} >
+                        <Badge badgeContent={likes.length} color="primary">
+                            <Favorite />
+                        </Badge>
                     </IconButton>
+                  
+                  
                     <ExpandMoreStyled
                         expand={expanded}
                         onClick={handleExpandClick}
                         aria-label="show more"
                     >
+                     
                         <ExpandMore />
                     </ExpandMoreStyled>
+                    <IconButton aria-label="delete" onClick={() => handlePostDeleteClick(_id)
+                        }>
+                    <Delete/>
+                   </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
