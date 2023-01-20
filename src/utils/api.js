@@ -22,7 +22,7 @@ class Api {
             headers: this._headers
         }).then(onResponce)
     }
-      // Зaпрос на изменение пользовательских данных
+      // Зaпрос на изменение пользовательских данных name && about
       setUserInfo(dataUser){
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
@@ -30,6 +30,15 @@ class Api {
             body: JSON.stringify(dataUser)
         }).then(onResponce)
     }
+// Запрос на изменение аватара
+    setUserAvatar(dataUser){
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify(dataUser)
+        }).then(onResponce)
+    }
+
 //  Запрос на получение всех пользователей
     getUserInfoAll(){
         return fetch(`${this._baseUrl}/users`, {
