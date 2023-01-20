@@ -2,14 +2,19 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Avatar } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 import './index.css';
 
-const Header = ({userMe, avatar, onUpdateUser}) =>{
+const Header = ({userMe, name, avatar}) =>{
 
   // const handleClickButtonEdit=(e)=>{
   //   e.preventDefault();
-  //   onUpdateUser({name: 'Евгений', about:'Студент'})
+  //   // onUpdateUser({name: "Евгений", about:"Студент"})
+  // }
+  // const handleClickButtonEdit=(e)=>{
+  //   e.preventDefault();
+  //   
+  //   onUpdateUserAvatar({avatar: "https://tshirt-factory.com/images/detailed/49/angry-pitbull-T-shirt-clip-art-49034.jpg"})
   // }
   
   return (
@@ -21,10 +26,11 @@ const Header = ({userMe, avatar, onUpdateUser}) =>{
           </Typography>
           <Typography variant="h6">
             {userMe?.email && <span>{userMe?.email}</span> &&<span>{userMe?.name}</span>}
-            
-           {/* <IconButton onClick={handleClickButtonEdit}>Изменить</IconButton> */}
+{/*             
+           <IconButton onClick={handleClickButtonEdit}>Изменить</IconButton> */}
           </Typography>
           
+                    {/* <Avatar src={userMe?.avatar && avatar}  aria-label="recipe"> */}
                     <Avatar className='avatar' aria-label="recipe">
                         {avatar}
                     </Avatar>

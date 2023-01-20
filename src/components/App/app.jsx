@@ -32,7 +32,7 @@ function App () {
         .catch(err=>console.log(err))
     },[])
 
-    // Функция изменения пользовательских данных
+    // Функция изменения пользовательских данных name && about
   function handleUpdateUser(userUpdateData){
     // обновленый объект отправляется на сервер
     api.setUserInfo(userUpdateData)
@@ -41,6 +41,17 @@ function App () {
       setUserMe(newUserData)
     })
   }
+
+     // Функция изменения пользовательских данных avatar
+     function handleUpdateUserAvatar(userUpdateDataAvatar){
+      // обновленый объект отправляется на сервер
+      api.setUserAvatar(userUpdateDataAvatar)
+      // сервер отвечает обновленым объектом
+      .then((newUserDataAvatar)=> {
+        setUserMe(newUserDataAvatar)
+      })
+    }
+
 // Фунция установки лайка 
   const handlePostLike= useCallback((post)=>{
     const liked = isLiked(post.likes, userMe._id)
@@ -49,7 +60,7 @@ function App () {
       // Перебирает массив 
       const newPosts = posts.map(postState=>{
           // Возвращает новый массив если был поставлен лайк или удален       
-         return postState._id ===updatePost._id ? updatePost : postState;
+         return postState._id === updatePost._id ? updatePost : postState;
       })
       setPosts(newPosts);
       return updatePost;
@@ -65,7 +76,7 @@ function App () {
     return(
       <UserContext.Provider value={{user: userMe}}>
       <PostContext.Provider value={{posts, postDelete: handlePostDelete, handleLike: handlePostLike}}>
-            <Header userMe={userMe} onUpdateUser={handleUpdateUser}/>
+            <Header userMe={userMe} onUpdateUser={handleUpdateUser} onUpdateUserAvatar={handleUpdateUserAvatar}/>
             <main className='content container'>
               <Routes>
                   <Route index element={
