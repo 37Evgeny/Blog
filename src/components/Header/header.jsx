@@ -2,7 +2,7 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Avatar, IconButton } from '@mui/material';
+import { Avatar } from '@mui/material';
 import './index.css';
 
 const Header = ({userMe, name, avatar}) =>{
