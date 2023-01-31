@@ -69,6 +69,24 @@ class Api {
             headers: this._headers
         }).then(onResponce)
     }
+
+    // Пагинация
+    getPaginatePosts(page, limit, query = ''){
+        return fetch(`${this._baseUrl}//posts/paginate?page=${page}&limit=${limit}&query=${query}`, {
+            headers: this._headers
+        }).then(onResponce)
+    }
+
+    // Запрос на добавление поста
+    setAddPost(dataAddPost){
+            return fetch(`${this._baseUrl}/posts`, {
+                method: 'POST',
+                headers: this._headers,
+                body: JSON.stringify(dataAddPost)
+            }).then(onResponce)
+        }
+
+
   
 
 }

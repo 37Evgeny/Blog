@@ -4,38 +4,25 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Avatar } from '@mui/material';
 import './index.css';
+import { ButtonAddPost } from '../ButtonAddPost/button-add-post';
 
-const Header = ({userMe, name, avatar}) =>{
+const Header = ({ userMe }) => {
 
-  // const handleClickButtonEdit=(e)=>{
-  //   e.preventDefault();
-  //   // onUpdateUser({name: "Евгений", about:"Студент"})
-  // }
-  // const handleClickButtonEdit=(e)=>{
-  //   e.preventDefault();
-  //   
-  //   onUpdateUserAvatar({avatar: "https://tshirt-factory.com/images/detailed/49/angry-pitbull-T-shirt-clip-art-49034.jpg"})
-  // }
-  
   return (
-    
-      <AppBar position="static" >
-        <Toolbar>
+    <AppBar position="static" >
+      <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            ProjectPost
-          </Typography>
-          <Typography variant="h6">
-            {userMe?.email && <span>{userMe?.email}</span> &&<span>{userMe?.name}</span>}
-{/*             
-           <IconButton onClick={handleClickButtonEdit}>Изменить</IconButton> */}
-          </Typography>
-          
-                    {/* <Avatar src={userMe?.avatar && avatar}  aria-label="recipe"> */}
-                    <Avatar className='avatar' aria-label="recipe">
-                        {avatar}
-                    </Avatar>
-        </Toolbar>
-        </AppBar>
+          ProjectPost
+        </Typography>
+        <ButtonAddPost />
+        <Typography variant="h6">
+          {<span>{userMe?.name}</span>}
+        </Typography>
+        <Avatar className='avatar' src={userMe?.avatar && userMe?.avatar} aria-label="recipe">
+          {userMe?.name.slice(0, 1).toUpperCase()}
+        </Avatar>
+      </Toolbar>
+    </AppBar>
   );
 }
 

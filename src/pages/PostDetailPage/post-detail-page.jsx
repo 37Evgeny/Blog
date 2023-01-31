@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { PostDetail } from "../../components/PostDetail/post-detail";
 import { PostContext } from "../../context/postContext";
 import { useApi } from "../../hooks/useApi";
-import { isLiked } from "../../utils/post"
 
 export const PostDetailPage = () => {
 
@@ -16,14 +15,12 @@ export const PostDetailPage = () => {
   const {
     data: post,
     setData: setPost,
-    error: errorState
   } =useApi(handleGetPost)
 
   // Фунkция установки лайка 
   const handlePostLike = useCallback(()=>{
     handleLike(post)
     .then((updatePost)=>{
-      console.log(updatePost)
       setPost(updatePost);
     })
   },[post, handleLike, setPost]) 
