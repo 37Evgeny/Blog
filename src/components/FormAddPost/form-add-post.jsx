@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import api from "../../utils/api";
 import "./index.css";
 
-export const FormAddPost= ({userMe,setPosts, posts})=> {
+export const FormAddPost= ()=> {
 
       const { register, handleSubmit } = useForm({ mode: 'onBlur'});
 
@@ -31,7 +31,7 @@ export const FormAddPost= ({userMe,setPosts, posts})=> {
           
         }
       })
-      const textTags= register('[tags]',{
+      const textTags= register('tags',{
         required:{
           value:true,
          

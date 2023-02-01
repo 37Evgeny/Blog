@@ -10,7 +10,7 @@ import { PostContext } from '../../context/postContext';
 import { NotFoundPage } from "../../pages/NotFoundPage/not-found-page";
 import { PostDetailPage } from "../../pages/PostDetailPage/post-detail-page";
 import { useCallback } from "react";
-import { FormAddPost } from "../FormAddPost/form-add-post";
+import { Modal } from "@mui/material";
 
 function App () {
     const [posts, setPosts] = useState([]);
@@ -72,10 +72,10 @@ function App () {
                     <NotFoundPage/>
                    }/>
                    <Route path='/post/:postId' element={
-                    <PostDetailPage/>
+                        <PostDetailPage/>
                    }/>
               </Routes>
-              <FormAddPost/>
+              
               </main>
             <Footer/>
         </PostContext.Provider>
