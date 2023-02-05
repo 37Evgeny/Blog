@@ -7,9 +7,11 @@ import { ContentHeader } from '../ContentHeader/content-header';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru'
 import s from './index.module.css'
+import { AllCommentsPost, CommentsPostId } from "../AllCommentsPost/all-comments-post";
+import Post from "../Post/post";
 dayjs.locale('ru')
 
-export const PostDetail = ({ image, title, author = {}, likes = [], text, created_at, _id, onPostLike }) => {
+export const PostDetail = ({ post, setPost, image, title, author = {}, likes = [], text, created_at, onPostLike, comments = [] }) => {
     const { name, avatar } = author;
     let color;
 
@@ -44,6 +46,7 @@ export const PostDetail = ({ image, title, author = {}, likes = [], text, create
                     <Typography paragraph>
                         {text}
                     </Typography>
+
                 </CardContent>
                 <div className="button">
                     <IconButton aria-label="add to favorites" color={color} onClick={onPostLike} >
@@ -53,6 +56,14 @@ export const PostDetail = ({ image, title, author = {}, likes = [], text, create
                     </IconButton>
                 </div>
             </Card>
-        </>
+
+            <Card>
+            <CardContent>
+            <Typography component={"ul"}>
+                {comments.map(commentsData => <li key={commentsData._id}>{commentsData.text}</li>)}
+            </Typography>
+            </CardContent>
+            </Card>
+          </>
     );
 };

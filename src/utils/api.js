@@ -86,9 +86,19 @@ class Api {
             }).then(onResponce)
         }
 
+        // Запрос на получение коментариев по id поста
+        getPostCommentsId(postId){
+            return fetch(`${this._baseUrl}/posts/comments/${postId}`, {
+                headers: this._headers
+            }).then(onResponce)
+        }
 
-  
-
+           // Запрос на получение всех комментариев
+           getAllPostComments(){
+            return fetch(`${this._baseUrl}/posts/comments/`, {
+                headers: this._headers
+            }).then(onResponce)
+        }
 }
 
     const config={

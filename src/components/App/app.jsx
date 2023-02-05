@@ -10,11 +10,12 @@ import { PostContext } from '../../context/postContext';
 import { NotFoundPage } from "../../pages/NotFoundPage/not-found-page";
 import { PostDetailPage } from "../../pages/PostDetailPage/post-detail-page";
 import { useCallback } from "react";
-import { Modal } from "@mui/material";
+import { AllCommentsPost, CommentsPostId } from "../AllCommentsPost/all-comments-post";
 
 function App () {
     const [posts, setPosts] = useState([]);
     const [userMe,setUserMe] = useState(null);
+
     useEffect(() => {
     Promise.all([api.getAllPosts(), api.getUserInfo()])
         .then(([postData, userData]) => {
@@ -75,7 +76,7 @@ function App () {
                         <PostDetailPage/>
                    }/>
               </Routes>
-              
+              <AllCommentsPost/>
               </main>
             <Footer/>
         </PostContext.Provider>
